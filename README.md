@@ -1,7 +1,7 @@
 # CryptographyLab
 
 ## MITM
-Server Side
+``Server Side``
 1. Take input from user for Alice (p,g,Xa)
 2. Compute Alice's Public Key Ya=g^Xa mod p
 3. Take input from user for Attacher (Xd1,Xd2)
@@ -14,7 +14,7 @@ Server Side
 8. Calculate Attacker-Alice and Attacker-Bob Key
 Kd1=Ya^Xd1 mod p Kd2=Yb^Xd2 mod p
 
-Client Side
+``Client Side``
 1. Take input from Server (p,g,fakeYa(Yd2))
 2. Take input from user for Bob's pvt key (Xb)
 3. Compute Bob's Public Key Yb=g^Xa mod p
