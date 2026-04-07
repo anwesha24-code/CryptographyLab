@@ -24,12 +24,11 @@ public class Server {
         System.out.println("Alice");
         System.out.print("Enter prime: ");
         int p = Integer.parseInt(br.readLine());
-
         System.out.print("Enter primitive root: ");
         int g = Integer.parseInt(br.readLine());
-
         System.out.print("Enter private key: ");
         int Xa = Integer.parseInt(br.readLine());
+
 
         int Ya = power(g, Xa, p);
         System.out.println("Alice Public Key: " + Ya);
@@ -38,22 +37,21 @@ public class Server {
         System.out.println("\nAttacker");
         System.out.print("Enter Xd1: ");
         int Xd1 = Integer.parseInt(br.readLine());
-
         System.out.print("Enter Xd2: ");
         int Xd2 = Integer.parseInt(br.readLine());
+
 
         int Yd1 = power(g, Xd1, p);
         int Yd2 = power(g, Xd2, p);
 
         System.out.println("Attacker Public Keys: " + Yd1 + ", " + Yd2);
 
-        // Send fake key to Bob
+        // Send fake key to Bob (instead of Alice's Ya)
         out.println(p + " " + g + " " + Yd2);
-
-        // Receive Bob key (intercepted)
+        // Receive Bob key (intercepted)(instead of Bob's Yb)
         int Yb = Integer.parseInt(in.readLine());
 
-        // Alice thinks this is Bob’s key but it's attacker’s
+        // Alice thinks this is Bob’s key but it's attacker’s public key
         int Ka = power(Yd1, Xa, p);
 
         // Attacker keys

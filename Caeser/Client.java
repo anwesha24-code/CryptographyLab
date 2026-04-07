@@ -1,5 +1,4 @@
 package Caeser;
-package Caesar;
 
 import java.io.*;
 import java.net.*;
