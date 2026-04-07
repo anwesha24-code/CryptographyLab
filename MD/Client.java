@@ -1,4 +1,4 @@
-package MD5;
+package MD;
 // Client.java
 import java.io.*;
 import java.net.*;
