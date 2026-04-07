@@ -25,19 +25,17 @@ public class Server {
 
         System.out.print("Enter prime: ");
         int p = Integer.parseInt(br.readLine());
-
         System.out.print("Enter primitive root: ");
         int g = Integer.parseInt(br.readLine());
-
         System.out.print("Enter private key (x): ");
         int x = Integer.parseInt(br.readLine());
 
         int y = power(g, x, p); // public key
+
         System.out.println("Public key (y): " + y);
 
         System.out.print("Enter message: ");
         int m = Integer.parseInt(br.readLine());
-
         System.out.print("Enter random k: ");
         int k = Integer.parseInt(br.readLine());
 
