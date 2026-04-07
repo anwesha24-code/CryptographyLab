@@ -91,6 +91,44 @@ character if ``Character.isLetter(c)``
 2.4 else ``res+=mat[r1][c1],res+=mat[r2][c2]``
 3. Print res
 
+## Row-Column
+### Server Side
+1. Take user input msg and key
+2. Calculate number of rows=msg.len/key.len and mat[rows][col]
+3. Fill the matrix ``k=0``,``mat[i][j]=(k<msg.len)?msg.charAt(k++):'X'``
+4. Read col wise
+5. Send to Client
+
+### Client Side
+1. Receive msg
+2. Fill matrix column wise
+3. Read row wise
+
+## Railfence
+### Server Side
+1. Take input of key and msg from user
+2. Take ``StringBuilder[] rail=new StringBuilder[key]`` and fill each ith index with new StringBuilder
+3. Take `dir=1, row=0`
+4. Take each char of msg
+4.1 place character `rail[row].append(c)`
+4.2 if `row==0 then dir=1` else if `row==key-1 then dir=-1`
+4.3 move row `row+=dir`
+5. Loop over and add to res `rail[i].toString()`
+
+### Client Side
+1. Create matrix ``rail[key][cipher.len]`` row=0 dir=1
+2. Traverse over cipher.len
+2.1 ``rail[row][i]=*``
+2.2 if row=0 then dir=1
+2.3 else if row==key-1 dir=-1
+2.4 ``row+=dir`` move row
+3. ``i=0``
+4. Loop over key length Loop over cipher.len
+4.1 if i<cipher.len && rail[i][j]=* then fill with charAt(i) and inc i
+5. Loop over 0->cipher.len
+5.1 Add rail[row][i] to res
+5.2 if i==0 dir=1 else if i==key-1 dir=-1
+5.3 `row+=dir` 
 
 ## AES
 ### Server Side
