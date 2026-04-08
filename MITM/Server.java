@@ -15,7 +15,6 @@ public class Server {
 
         ServerSocket ss = new ServerSocket(5000);
         Socket s = ss.accept();
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         PrintWriter out = new PrintWriter(s.getOutputStream(), true);

@@ -9,15 +9,11 @@ public class Server {
 
         ServerSocket ss = new ServerSocket(5000);
         Socket s = ss.accept();
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-
         System.out.println("Sender (Encryption)");
-
         System.out.print("Message/Plaintext: ");
         String msg = br.readLine();
-
         System.out.print("Key: ");
         int key = Integer.parseInt(br.readLine());
 
@@ -30,7 +26,6 @@ public class Server {
         }
 
         System.out.println("\nCipher Text: " + result);
-
         out.println(result + " " + key);
 
         s.close();

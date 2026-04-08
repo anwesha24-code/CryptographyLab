@@ -38,7 +38,6 @@ public class Client {
 
         int sKey = power(c1, x, p);
         int inv = modInverse(sKey, p);
-
         int m = (c2 * inv) % p;
 
         System.out.println("Decrypted Message: " + m);
