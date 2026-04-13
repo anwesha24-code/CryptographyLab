@@ -6,11 +6,9 @@ import java.net.*;
 public class Client {
 
     static char[][] matrix = new char[5][5];
-
     static void generateMatrix(String key) {
         boolean[] used = new boolean[26];
         key = key.toUpperCase().replace("J", "I");
-
         int k = 0;
         for (char c : key.toCharArray()) {
             if (!used[c - 'A']) {
@@ -19,7 +17,6 @@ public class Client {
                 k++;
             }
         }
-
         for (char c = 'A'; c <= 'Z'; c++) {
             if (c == 'J') continue;
             if (!used[c - 'A']) {
@@ -38,7 +35,6 @@ public class Client {
             char b = text.charAt(i + 1);
 
             int r1 = 0, c1 = 0, r2 = 0, c2 = 0;
-
             for (int r = 0; r < 5; r++)
                 for (int c = 0; c < 5; c++) {
                     if (matrix[r][c] == a) { r1 = r; c1 = c; }

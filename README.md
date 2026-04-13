@@ -117,19 +117,45 @@ character if ``Character.isLetter(c)``
 
 ### Client Side
 1. Create matrix ``rail[key][cipher.len]`` row=0 dir=1
+
 2. Traverse over cipher.len
 2.1 ``rail[row][i]=*``
 2.2 if row=0 then dir=1
 2.3 else if row==key-1 dir=-1
 2.4 ``row+=dir`` move row
+
 3. ``i=0``
 4. Loop over key length Loop over cipher.len
 4.1 if i<cipher.len && rail[i][j]=* then fill with charAt(i) and inc i
+
 5. Loop over 0->cipher.len
 5.1 Add rail[row][i] to res
 5.2 if i==0 dir=1 else if i==key-1 dir=-1
 5.3 `row+=dir` 
 
+## DES
+### Server Side
+1. Take user input `msg,key`
+2. Create `byte[]keybytes=new byte[8]` , `byte[]inputkey=key.getBytes()`
+3. Fill key array `keybytes[i]=i<key.len?inputbytes[i]:0` if key is short pad with 0
+4. secret key `SecretKey key=new SecretKeySpec(keybytes,"DES")`
+5. convert msg to bytes `byte[]data=msg.getBytes()`
+
+6. Loop over 16 times print `i, bytesToHex(data)`
+
+7. Cipher `cipher=Cipher.getInstance("DES")`
+8. encrypt `cipher.init(Cipher.ENCRYPT_MODE,key)`
+9. byte[] encrypted=cipher.doFinal(data)
+10. Convert to Hex `cipher=bytesToHex(encrypt)` --> sb.append(String.format("%02X",b)) where b is bytes 
+11. send to client cipher,new String(keybytes)
+
+### Client Side
+1. Receive from server
+2. convert key to bytes and create SecretKey
+3. convert cipher hex to bytes
+4. Loop over 16 times print `i,cipherText`
+5. decrypt `cipher.init(Cipher.DECRYPT_MODE,key)`
+6. byte[] decrypted=cipher.doFinal(encrypted)
 ## AES
 ### Server Side
 ### Client Side

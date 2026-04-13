@@ -8,13 +8,9 @@ public class Client {
     public static void main(String[] args) throws Exception {
 
         Socket s = new Socket("localhost", 5000);
-
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-
         System.out.println("Receiver (Decryption)");
-
         String[] data = in.readLine().split(" ");
-
         String cipher = data[0];
         int key = Integer.parseInt(data[1]);
 

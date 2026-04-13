@@ -7,20 +7,16 @@ import java.security.SecureRandom;
 
 public class Server {
     public static void main(String[] args) throws Exception {
-
         ServerSocket ss = new ServerSocket(5000);
         Socket s = ss.accept();
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-
         System.out.print("Message: ");
         String msg = br.readLine();
 
         BigInteger m = new BigInteger(msg.getBytes());
 
         SecureRandom rand = new SecureRandom();
-
         // Generate 1024-bit primes
         BigInteger p = BigInteger.probablePrime(1024, rand);
         BigInteger q = BigInteger.probablePrime(1024, rand);

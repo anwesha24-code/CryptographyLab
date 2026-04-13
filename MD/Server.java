@@ -1,45 +1,37 @@
 package MD;
-// Server.java
-import java.io.*;
-import java.net.*;
+
+import java.util.*;
 import java.security.*;
 
-public class Server {
-    public static void main(String[] args) throws Exception {
+class Server{
+    public static void main(String [] args) throws Exception{
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the message:");
+        String word=sc.nextLine();
 
-        ServerSocket ss = new ServerSocket(5000);
-        Socket s = ss.accept();
+        int len=word.length();
+        if(len<56)System.out.println("Test Case 1");
+        else if(len==56)System.out.println("Test Case 2");
+        else System.out.println("Test Case 3");
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        int blocks=((len+8)/64)+1;
+        System.out.println("Number of blocks: "+blocks);
 
-        String input = in.readLine();
+        for(int i=0;i<blocks;i++){
+            System.out.println("Block " + (i + 1));
+            System.out.println("Round 1");
+            System.out.println("Round 2");
+            System.out.println("Round 3");
+            System.out.println("Round 4");
+        }
+        MessageDigest md=MessageDigest.getInstance("MD5");
+        byte[] hash=md.digest(word.getBytes());
+        String result="";
+        for(byte b:hash){
+            result+=String.format("%02x",b);
+        }
+        System.out.println("Hash: "+result);
 
-        int len = input.length();
-        System.out.println("No of characters: " + len);
 
-        if (len < 56)
-            System.out.println("Input Test Case 1");
-        else if (len == 56)
-            System.out.println("Input Test Case 2");
-        else
-            System.out.println("Input Test Case 3");
-
-        System.out.println("Block 1");
-        System.out.println("Round 1");
-        System.out.println("Round 2");
-        System.out.println("Round 3");
-        System.out.println("Round 4");
-
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] digest = md.digest(input.getBytes());
-
-        String hash = "";
-        for (byte b : digest)
-            hash += String.format("%02x", b);
-
-        System.out.println("Final Hash Value: " + hash);
-
-        s.close();
-        ss.close();
     }
 }

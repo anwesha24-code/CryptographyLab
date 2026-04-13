@@ -17,10 +17,8 @@ public class Server {
 
         ServerSocket ss = new ServerSocket(5000);
         Socket s = ss.accept();
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-
         System.out.println("Sender (Server)");
 
         System.out.print("Enter prime: ");

@@ -4,9 +4,7 @@ import java.io.*;
 import java.net.*;
 
 public class Server {
-
     static int[][] key = new int[2][2];
-
     static String encrypt(String text) {
         text = text.toUpperCase().replaceAll(" ", "");
         if (text.length() % 2 != 0) text += "X";
@@ -33,19 +31,15 @@ public class Server {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-
         System.out.println("Sender (Encryption)");
-
         System.out.print("Message/Plaintext: ");
         String msg = br.readLine();
-
         System.out.println("Enter 2x2 key matrix:");
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 2; j++)
                 key[i][j] = Integer.parseInt(br.readLine());
 
         String cipher = encrypt(msg);
-
         System.out.println("\nCipher Text: " + cipher);
 
         out.println(cipher + " " +

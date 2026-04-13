@@ -14,7 +14,6 @@ public class Client {
     public static void main(String[] args) throws Exception {
 
         Socket s = new Socket("localhost", 5000);
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         PrintWriter out = new PrintWriter(s.getOutputStream(), true);

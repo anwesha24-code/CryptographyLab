@@ -2,11 +2,8 @@ package Hill;
 
 import java.io.*;
 import java.net.*;
-
 public class Client {
-
     static int[][] key = new int[2][2];
-
     static int modInverse(int det) {
         det = (det % 26 + 26) % 26;
         for (int i = 1; i < 26; i++)
@@ -46,26 +43,17 @@ public class Client {
     }
 
     public static void main(String[] args) throws Exception {
-
         Socket s = new Socket("localhost", 5004);
-
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-
         System.out.println("Receiver (Decryption)");
-
         String[] data = in.readLine().split(" ");
-
         String cipher = data[0];
-
         key[0][0] = Integer.parseInt(data[1]);
         key[0][1] = Integer.parseInt(data[2]);
         key[1][0] = Integer.parseInt(data[3]);
         key[1][1] = Integer.parseInt(data[4]);
-
         String plain = decrypt(cipher);
-
         System.out.println("Decrypted Text: " + plain);
-
         s.close();
     }
 }
