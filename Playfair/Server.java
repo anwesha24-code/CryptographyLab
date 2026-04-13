@@ -4,74 +4,98 @@ import java.io.*;
 import java.net.*;
 
 public class Server {
-    static char[][] matrix = new char[5][5];
-    static void generateMatrix(String key) {
-        boolean[] used = new boolean[26];
-        key = key.toUpperCase().replace("J", "I");
+    public static void main(String[] args) throws Exception {
+        ServerSocket ss = new ServerSocket(5000);
+        Socket s = ss.accept();
 
-        int k = 0;
-        for (char c : key.toCharArray()) {
-            if (!used[c - 'A']) {
-                matrix[k / 5][k % 5] = c;
-                used[c - 'A'] = true;
-                k++;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out = new PrintWriter(s.getOutputStream(), true);
+
+        System.out.println("Enter word:");
+        String word = br.readLine();
+
+        System.out.println("Enter key:");
+        String key = br.readLine();
+
+        key = key.toUpperCase().replaceAll("J", "I");
+
+        // Create matrix
+        char[][] mat = new char[5][5];
+        boolean[] used = new boolean[26];
+        int j = 0;
+
+        for (char k : key.toCharArray()) {
+            if (k == 'J') k = 'I';
+            if (!used[k - 'A']) {
+                mat[j / 5][j % 5] = k;
+                used[k - 'A'] = true;
+                j++;
             }
         }
+
         for (char c = 'A'; c <= 'Z'; c++) {
             if (c == 'J') continue;
             if (!used[c - 'A']) {
-                matrix[k / 5][k % 5] = c;
+                mat[j / 5][j % 5] = c;
                 used[c - 'A'] = true;
-                k++;
+                j++;
             }
         }
-    }
 
-    static String encrypt(String text) {
-        text = text.toUpperCase().replace("J", "I").replaceAll(" ", "");
+        // Preprocess message
+        word = word.toUpperCase().replaceAll("J", "I").replaceAll(" ", "");
+
+        String processed = "";
+        for (int i = 0; i < word.length(); i++) {
+            char a = word.charAt(i);
+            char b;
+
+            if (i + 1 < word.length() && word.charAt(i) != word.charAt(i + 1)) {
+                b = word.charAt(i + 1);
+                i++;
+            } else {
+                b = 'X';
+            }
+
+            processed += "" + a + b;
+        }
+
+        // Encryption
         String res = "";
 
-        for (int i = 0; i < text.length(); i += 2) {
-            char a = text.charAt(i);
-            char b = (i + 1 < text.length()) ? text.charAt(i + 1) : 'X';
+        for (int i = 0; i < processed.length(); i += 2) {
+            char a = processed.charAt(i);
+            char b = processed.charAt(i + 1);
 
             int r1 = 0, c1 = 0, r2 = 0, c2 = 0;
-            for (int r = 0; r < 5; r++)
+
+            for (int r = 0; r < 5; r++) {
                 for (int c = 0; c < 5; c++) {
-                    if (matrix[r][c] == a) { r1 = r; c1 = c; }
-                    if (matrix[r][c] == b) { r2 = r; c2 = c; }
+                    if (mat[r][c] == a) {
+                        r1 = r; c1 = c;
+                    }
+                    if (mat[r][c] == b) {
+                        r2 = r; c2 = c;
+                    }
                 }
+            }
 
             if (r1 == r2) {
-                res += matrix[r1][(c1 + 1) % 5];
-                res += matrix[r2][(c2 + 1) % 5];
+                res += mat[r1][(c1 + 1) % 5];
+                res += mat[r2][(c2 + 1) % 5];
             } else if (c1 == c2) {
-                res += matrix[(r1 + 1) % 5][c1];
-                res += matrix[(r2 + 1) % 5][c2];
+                res += mat[(r1 + 1) % 5][c1];
+                res += mat[(r2 + 1) % 5][c2];
             } else {
-                res += matrix[r1][c2];
-                res += matrix[r2][c1];
+                res += mat[r1][c2];
+                res += mat[r2][c1];
             }
         }
-        return res;
-    }
 
-    public static void main(String[] args) throws Exception {
+        System.out.println("Encrypted: " + res);
 
-        ServerSocket ss = new ServerSocket(5003);
-        Socket s = ss.accept();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-        System.out.println("Sender (Encryption)");
-        System.out.print("Message/Plaintext: ");
-        String msg = br.readLine();
-        System.out.print("Key: ");
-        String key = br.readLine();
-
-        generateMatrix(key);
-        String cipher = encrypt(msg);
-        System.out.println("\nCipher Text: " + cipher);
-        out.println(cipher + " " + key);
+        // Send encrypted + key
+        out.println(res + " " + key);
 
         s.close();
         ss.close();
