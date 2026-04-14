@@ -133,5 +133,6 @@ public class Server {
         // Step 11: Final output
         System.out.println("\nFinal Hash Value:");
         System.out.printf("%08x%08x%08x%08x\n", A, B, C, D);
+        sc.close();
     }
 }

@@ -122,5 +122,6 @@ public class Server {
         for (long h : H) {
             System.out.printf("%016x", h);
         }
+        sc.close();
     }
 }

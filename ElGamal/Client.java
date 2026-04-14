@@ -29,7 +29,7 @@ public class Client {
         String[] data = in.readLine().split(" ");
 
         int p = Integer.parseInt(data[0]);
-        int g = Integer.parseInt(data[1]);
+        // int g = Integer.parseInt(data[1]);
         int x = Integer.parseInt(data[2]);
         int c1 = Integer.parseInt(data[3]);
         int c2 = Integer.parseInt(data[4]);
