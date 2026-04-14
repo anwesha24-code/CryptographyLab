@@ -11,8 +11,9 @@ public class Client {
         Socket s = new Socket("localhost", 5000);
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
         String[] d = in.readLine().split(" ", 2);
+        String keyStr = d[1];
 
-        byte[] keyBytes = d[1].getBytes();   
+        byte[] keyBytes = keyStr.getBytes();   
 
         Cipher cipher = Cipher.getInstance("DES");
         SecretKey key = new SecretKeySpec(keyBytes, "DES");  

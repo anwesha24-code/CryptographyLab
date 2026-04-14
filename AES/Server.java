@@ -27,8 +27,7 @@ public class Server {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, key);
 
-        byte[] encrypted = cipher.doFinal(msg.getBytes());
-        String cipherText = bytesToHex(encrypted);
+        String cipherText = bytesToHex(cipher.doFinal(msg.getBytes()));
 
         System.out.println("Cipher Text: " + cipherText);
         out.println(cipherText + " " + new String(keyBytes));

@@ -19,10 +19,11 @@ public class Server {
         String keyStr = br.readLine();
 
         // Make 8-byte key
-        byte[] keyBytes = new byte[8];
-        for (int i = 0; i < 8; i++)
-            keyBytes[i] = (i < keyStr.length()) ? (byte) keyStr.charAt(i) : 0;
-
+        byte[] keyBytes = new byte[8]; // or 16 for AES
+        byte[] inputKey = keyStr.getBytes();
+        for (int i = 0; i < 8; i++) 
+            keyBytes[i] = (i < inputKey.length) ? inputKey[i] : 0;
+        
         SecretKey key = new SecretKeySpec(keyBytes, "DES");
         Cipher cipher = Cipher.getInstance("DES");
         cipher.init(Cipher.ENCRYPT_MODE, key);
