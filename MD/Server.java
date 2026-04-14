@@ -1,3 +1,4 @@
+package MD;
 import java.util.Scanner;
 
 public class Server {
@@ -83,10 +84,7 @@ public class Server {
             for (int i = 0; i < 16; i++) {
                 int index = b * 64 + i * 4;
 
-                M[i] = (padded[index] & 0xff)
-                     | ((padded[index + 1] & 0xff) << 8)
-                     | ((padded[index + 2] & 0xff) << 16)
-                     | ((padded[index + 3] & 0xff) << 24);
+                M[i] = (padded[index] & 0xff) | ((padded[index + 1] & 0xff) << 8) | ((padded[index + 2] & 0xff) << 16)  | ((padded[index + 3] & 0xff) << 24);
             }
 
             int a = A, b1 = B, c = C, d = D;
